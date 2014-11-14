@@ -30,7 +30,7 @@ t = { a = 1, b = 2}
 g = { c = 3, d = 4,  t}
 t.rt = g
 
-print(serialize(t))
+-- print(serialize(t))
 
 -- do local ret={a=1,rt={c=3,d=4},b=2}ret.rt[1]=ret return ret end
 local pairs = pairs
@@ -39,7 +39,7 @@ local print = print
 
 local table_ser = function(tablevar)
 	local container = {}
-	for k, v in pairs(tablevar)
+	for k, v in pairs(tablevar) do
 		-- serialize key
 		local keytype = type(k)
 		local keystr = nil
@@ -49,20 +49,33 @@ local table_ser = function(tablevar)
 			keystr = string.format("[%d]", k)
 		elseif keytype == "table" then
 			keystr = string.format("[%s]", table_ser(k))
-		else print("ser: key type not support")
+		else print("luaser: key type not support")
 		end
 		-- serialize value
 		local valuetype = type(v)
 		local valuestr = nil
-		if valuetype == "string" then
-		elseif valuetype == "number" then
-		elseif valuetype == "table" then
+		if valuetype == "table" then
+			valuestr = table_ser(v)
 		elseif valuetype == "function" then
+			valuestr = string.dump(v)
 		else
+			valuestr = tostring(v)
+			if not valuestr then print("luaser: value type not support")
+			end
 		end
+		local keyvaluestr = string.format("%s=%s", keystr, valuestr)
+		table.insert(container, keyvaluestr)
 	end
+	return string.format("{%s}", table.concat(container, ","))
 end
 
+
+local s= table_ser({
+"nihao",
+fun=function () return "hello" end
+})
+
+print(s)
 function ser(tablevar)
 
 end
