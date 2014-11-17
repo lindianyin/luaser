@@ -8,8 +8,9 @@ lua序列化
 *	支持value类型为string, number, table
 *	支持循环引用
 *	支持加密序列化
+*	支持loadstring反序列化
 
-使用示例
+**使用示例**
 ---
 ```
 local t = { a = 1, b = 2}
