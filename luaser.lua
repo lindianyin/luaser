@@ -73,5 +73,4 @@ local function ser(var, enc)
 	return (enc==nil or enc==true) and string.dump(loadstring(ret)) or ret
 end
 
-utils.ser = ser
 return ser
