@@ -52,13 +52,14 @@ end
 		*	支持value类型为string, number, table
 		*	支持循环引用
 		*	支持加密序列化
+		*	支持loadstring反序列化
 	@use: 
 	-- 返回的字符串使用loadstring加载是一个function，运行此function即可返回反序列化的table
 	local t = { a = 1, b = 2}
 	local g = { c = 3, d = 4,  t}
 	t.rt = g
 	local ser_str = ser(g)
-	local unser_table = loadstring(sered)()
+	local unser_table = loadstring(ser_str)()
 ]]
 local function ser(var, enc)
 	assert(type(var)=="table")
@@ -72,4 +73,5 @@ local function ser(var, enc)
 	return (enc==nil or enc==true) and string.dump(loadstring(ret)) or ret
 end
 
+utils.ser = ser
 return ser
