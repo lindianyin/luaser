@@ -19,3 +19,4 @@ t.rt = g
 local ser_str = ser(g)
 local unser_table = loadstring(sered)()
 ```
+output: local ret={[1]={["a"]=1,["b"]=2},["c"]=3,["d"]=4} ret[1]["rt"]=ret return ret
