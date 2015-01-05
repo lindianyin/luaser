@@ -22,7 +22,7 @@ local function table_ser(tablevalue, tablekey, mark, assign)
 		local valuestr = nil
 		if type(v) == "string" then 
 			valuestr = string.format("\"%s\"", tostring(v))
-		elseif type(v) == "number" then 
+		elseif type(v) == "number" or type(v) == "boolean" then 
 			valuestr = tostring(v)
 		elseif type(v) == "table" then
 			-- 获得从根表到当前表项的完整key， tablekey(代表tablevalue的key)， mark[v]代表table v的key
@@ -49,7 +49,7 @@ end
 
 	@support: 
 		*	支持key类型为string, number
-		*	支持value类型为string, number, table
+		*	支持value类型为string, number, table, boolean
 		*	支持循环引用
 		*	支持加密序列化
 		*	支持loadstring反序列化
